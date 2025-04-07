@@ -81,8 +81,49 @@
     </repository>
   </repositories>
 
+
   <build>
+  
+
+
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                    <moduleIndices>true</moduleIndices> <!-- 启用模块索引 -->
+                    <includeModuleDependencies>true</includeModuleDependencies>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+        </plugins>
+    </pluginManagement>
     <plugins>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>3.21.2</version>  <!-- 确保使用最新版本 -->
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>check</goal>  <!-- 运行 PMD 检查 -->
+                  </goals>
+              </execution>
+          </executions>
+          <configuration>
+              <rulesets>
+                  <ruleset>${project.basedir}/src/main/resources/custom-pmd-rules.xml</ruleset>
+              </rulesets>
+              <failOnViolation>false</failOnViolation>
+          </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -116,8 +157,47 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version> <!-- 使用最新稳定版 -->
+        <configuration>
+                <!-- 启用模块索引 -->
+                <moduleIndex>true</moduleIndex>
+                <!-- 包含所有子模块的站点 -->
+                <includeModuleDependencies>true</includeModuleDependencies>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+      <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>3.2.2</version>
+          </plugin>
+                  <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.21.2</version>
+            <configuration>
+                <rulesets>
+                    <ruleset>${project.basedir}/src/main/resources/custom-pmd-rules.xml</ruleset>
+                </rulesets>
+            </configuration>
+            <reportSets>
+                <reportSet>
+                    <reports>
+                        <report>pmd</report> <!-- 生成 PMD 代码质量报告 -->
+                        <report>cpd</report> <!-- 生成重复代码检测报告 -->
+                    </reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
+      </plugins>
+  </reporting>
 
   <modules>
     <module>docs-core</module>
@@ -125,7 +205,15 @@
     <module>docs-web</module>
   </modules>
 
+  <distributionManagement>
+      <site>
+          <id>my-site</id>
+          <url>file://{file path of your Teedy Project}/Teedy/target/site</url>
+      </site>
+  </distributionManagement>
+  
   <dependencyManagement>
+  
     <dependencies>
       <dependency>
         <groupId>com.sismics.docs</groupId>

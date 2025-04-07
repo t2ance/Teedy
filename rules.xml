@@ -1,0 +1,38 @@
+<ruleset name="Custom Ruleset"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    
+    <!-- 1. Lines of Code (LoC) -->
+    <rule ref="category/java/metrics.xml/ExcessiveClassLength">
+        <priority>3</priority> <!-- 根据需求调整优先级 -->
+    </rule>
+    <rule ref="category/java/metrics.xml/ExcessiveMethodLength">
+        <priority>3</priority>
+    </rule>
+
+    <!-- 2. Cyclomatic Complexity (CC) -->
+    <rule ref="category/java/metrics.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportConstant" value="true"/> <!-- 包括常量方法 -->
+        </properties>
+    </rule>
+
+    <!-- 3. Weighted Methods per Class (WMC) -->
+    <rule ref="category/java/metrics.xml/GodClass">
+        <!-- GodClass规则检测类方法过多 -->
+        <priority>2</priority>
+    </rule>
+
+    <!-- 4. Coupling Between Objects (CBO) -->
+    <rule ref="category/java/metrics.xml/TooManyDependencies">
+        <priority>3</priority>
+    </rule>
+
+    <!-- 5. Lack of Cohesion in Methods (LCOM) -->
+    <!-- PMD默认无直接规则，需自定义（参考步骤2） -->
+    <rule ref="category/java/design.xml/LawOfDemeter">
+        <!-- 替代方案：检测方法间过度耦合 -->
+        <priority>3</priority>
+    </rule>
+</ruleset>

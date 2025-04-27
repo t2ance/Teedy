@@ -10,6 +10,8 @@
 /.project
 *.iml
 node_modules
+target
+var
 import_test
 teedy-importer-linux
 teedy-importer-macos

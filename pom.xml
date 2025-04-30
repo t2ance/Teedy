@@ -584,6 +584,7 @@
             <configuration>
                 <rulesets>
                     <ruleset>${project.basedir}/src/main/resources/custom-pmd-rules.xml</ruleset>
+                    <!-- <ruleset>/mnt/c/Users/ASUS/programs/CS304/Teedy</ruleset> -->
                 </rulesets>
             </configuration>
             <reportSets>
